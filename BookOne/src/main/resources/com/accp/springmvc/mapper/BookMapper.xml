@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper  namespace="com.accp.springmvc.mapper.BookMapper">
+   <select id="selectA" resultType="Book">
+ SELECT
+  `books`.`bookid`,
+  `title`,
+  `price`,
+  qty
+FROM
+  `book`.`books`,
+  `book`.`storage`
+  WHERE `books`.bookid=`storage`.`bookid`
+
+  </select>
+  
+  
+   <select id="selectB" resultType="cart">
+  SELECT
+  `cartid`,
+  `bookid`,
+  `title`,
+  `qty`
+	FROM
+  `book`.`cart` 
+  </select>
+  
+    <select id="selectC" resultType="Book">
+  SELECT
+  `bookid`,
+  `title`,
+  `price`
+	FROM
+  `book`.`books` 
+  WHERE bookid=#{bookid}
+  </select>
+  
+  
+  
+      <select id="selectD" resultType="cart">
+  SELECT
+  `cartid`,
+  `bookid`,
+  `title`,
+  `qty`
+	FROM
+  `book`.`cart` 
+  WHERE bookid=#{bookid}
+  </select>
+  
+	<insert id="insertOne" parameterType="Book">
+		INSERT INTO 
+	`book`.`cart` 
+	( `bookid`, `title`, `qty`)
+	VALUES
+  ( #{bookid}, #{title}, 1);
+	</insert>
+	
+	<update id="updateone">
+	UPDATE
+  `book`.`cart`
+	SET
+  `qty` =qty+ 1
+	WHERE `bookid` = #{bookid};
+	</update>
+	
+	<delete id="deletecar">
+	DELETE
+	FROM
+  `book`.`cart`
+	</delete>
+	
+	<delete id="deleteone">
+	DELETE
+	FROM
+  `book`.`cart`
+  	WHERE `bookid` = #{bookid}
+	</delete>
+</mapper>
